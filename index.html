@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<!-- 宣告使用 HTML5；DOCTYPE 是文件類型宣告，不需要結束標籤。 -->
+<html lang="zh-Hant">
+<!-- html 包住整份文件；lang="zh-Hant" 表示主要使用繁體中文。 -->
+<head>
+    <!-- head 放網頁資訊；這些資訊不會直接成為頁面中的報導文字。 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="走進台中宮原眼科，探索日治時期老建築轉型為文化創意與人氣甜點地標的歷史故事、建築美學與參觀資訊。">
+    <meta name="author" content="D1430017 與那嶺藍">
+    <title>宮原眼科報導｜老建築與甜點美學的交會（HW06 CSS美化）</title>
+
+    <!-- 方法二：head 中的 style 元素，集中撰寫全頁樣式 -->
+    <style>
+        /* 1. 元素選擇器：重設全域排版、字型、行高與柔和的暖色調背景 */
+        body {
+            font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+            line-height: 1.8;
+            color: #2b2b2b;
+            background-color: #fcf9f2; /* 溫潤的米紙色，呼應老建築紙本與紅磚氛圍 */
+            margin: 0;
+            padding: 20px 15px;
+        }
+
+        /* 限制文章最大閱讀寬度，確保大螢幕舒適置中，手機窄螢幕兩側留白 */
+        header, nav, main, footer {
+            max-width: 820px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 頁首美化：紅磚色系邊框與陰影卡片 */
+        header {
+            background-color: #ffffff;
+            border-left: 8px solid #8c3a27; /* 紅磚瓦色 */
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: #722617;
+            font-size: 1.85rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* 導覽列：淺棕卡片與清晰的項目連結排版 */
+        nav {
+            background-color: #f4ece1;
+            border: 1px solid #dfd3c3;
+            border-radius: 6px;
+            padding: 16px 24px;
+            margin-bottom: 25px;
+        }
+
+        nav h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            color: #5c3d2e;
+        }
+
+        nav ul {
+            margin: 0;
+            padding-left: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 8px;
+        }
+
+        /* 連結樣式：滑鼠懸停（:hover）與鍵盤焦點（:focus-visible）提示 */
+        a {
+            color: #8c3a27;
+            text-decoration: underline;
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+
+        a:hover {
+            color: #d1512d;
+            background-color: #fff1eb;
+        }
+
+        a:focus-visible {
+            outline: 2px solid #8c3a27;
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* 內文各章節 section 外觀與間距 */
+        section {
+            background-color: #ffffff;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            border-radius: 6px;
+            border: 1px solid #ebdccb;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        h2 {
+            color: #632616;
+            font-size: 1.45rem;
+            border-bottom: 2px solid #e8d7c3;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #7c4a32;
+            font-size: 1.15rem;
+            margin-top: 20px;
+        }
+
+        /* 表格樣式：移除舊式 border 屬性，使用現代 CSS 邊框合併與間距 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #ffffff;
+        }
+
+        caption {
+            font-weight: bold;
+            color: #5c3d2e;
+            padding-bottom: 10px;
+            text-align: left;
+        }
+
+        th, td {
+            border: 1px solid #dfcfbe;
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        thead th {
+            background-color: #efe2d3;
+            color: #4a2818;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #fdfaf6;
+        }
+
+        /* 圖片與多媒體自適應控制，防止窄螢幕溢出破版 */
+        figure {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        figcaption {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #6b6055;
+            line-height: 1.6;
+        }
+
+        /* 2. 類別選擇器（Class）：保持影片與地圖正確比例且不超過容器寬度 */
+        .media-container {
+            width: 100%;
+            max-width: 560px;
+            margin: 16px 0;
+        }
+
+        .media-container iframe {
+            width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 3. ID 選擇器：補充資訊區塊（aside）獨立邊框與淡黃米色提醒背景 */
+        #tips {
+            background-color: #fff9e6;
+            border: 1px solid #eedb9f;
+            border-left: 6px solid #d4a017;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+        }
+
+        #tips h3 {
+            margin-top: 0;
+            color: #7c5806;
+        }
+
+        /* 頁尾樣式 */
+        footer {
+            text-align: center;
+            padding: 24px 0 10px;
+            color: #7a7065;
+            font-size: 0.9rem;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px dashed #d5c4b1;
+            margin: 25px auto;
+            max-width: 820px;
+        }
+
+        /* 針對行動裝置窄視窗最佳化留白 */
+        @media (max-width: 600px) {
+            body {
+                padding: 12px 8px;
+            }
+            header, section, nav, #tips {
+                padding: 16px 16px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 語意元素 1：header（頁首） -->
+    <header id="top">
+        <h1>宮原眼科：老建築與甜點美學的交會</h1>
+        <p>從日治眼科醫院到現代文創地標，細讀台中舊城區的再生故事。</p>
+        <p>作者：D1430017 與那嶺藍｜更新日期：<time datetime="2026-10-21">2026 年 10 月 21 日</time></p>
+        
+        <!-- 【方法一：行內樣式 1】針對特別聲明文字設定淡灰色與小字號，註解說明其用途 -->
+        <p style="color: #736b63; font-size: 0.88rem; margin-bottom: 0;">
+            <small>本專題為第六次作業（HW06），延續 HW05 結構並導入 CSS 盒子模型與視覺美化。</small>
+        </p>
+    </header>
+
+    <!-- 語意元素 2：nav（導覽列） -->
+    <nav aria-label="報導目錄">
+        <h2>報導目錄</h2>
+        <ul>
+            <li><a href="#intro">景點簡介</a></li>
+            <li><a href="#highlights">建築特色與參觀順序</a></li>
+            <li><a href="#table">參觀重點比較表</a></li>
+            <li><a href="#photo">歷史建築外觀照片</a></li>
+            <li><a href="#video">影音報導</a></li>
+            <li><a href="#map">位置地圖</a></li>
+            <li><a href="#tips">參觀實用小貼士</a></li>
+            <li><a href="#sources">資料來源</a></li>
+        </ul>
+    </nav>
+
+    <hr>
+
+    <!-- 語意元素 3：main（主要內容區塊） -->
+    <main>
+        <!-- 語意元素 4：article（完整獨立文章報導） -->
+        <article aria-label="台中宮原眼科專題報導">
+            
+            <!-- 語意元素 5：section（章節區塊：簡介） -->
+            <section id="intro">
+                <h2>一、景點簡介</h2>
+                <p>
+                    宮原眼科位於台中火車站前、綠川水岸旁，最早建造於 <strong>1927 年</strong>，
+                    原為日本眼科醫學博士宮原武熊所開設的診所，也是日治時期台中規模最大的私人醫院。
+                    戰後建築曾轉作為台中衛生院使用，歷經九二一大地震與歲月摧殘後一度成為荒廢危樓。
+                </p>
+                <p>
+                    民國 99 年（2010 年），在地知名糕餅品牌「日出」團隊接手這座殘破的老建築，
+                    結合專業建築師與結構專家進行修復與再造，歷時一年多將老屋活化。
+                    修復團隊完整保留了沿街立面的<strong>紅磚騎樓與斑駁木構</strong>，
+                    並於內部打造出彷彿哈利波特霍格華茲魔法學院般的挑高魔幻圖書館空間。
+                </p>
+                <p>
+                    如今的宮原眼科已轉型為集結糕餅手信、招牌冰淇淋與文化沙龍的超人氣景點，
+                    成為台灣歷史建築活化與地方創生的代表性成功範例。
+                    本篇整理宮原眼科的歷史轉折、特色重點與參觀建議，帶領讀者深入探索。
+                </p>
+
+                <!-- 【方法一：行內樣式 2】針對地址與重點摘要增加左側裝飾短線與背景凸顯，註解說明其用途 -->
+                <p style="border-left: 4px solid #8c3a27; background-color: #faf5ed; padding: 10px 14px; margin-top: 15px;">
+                    <strong>景點地址：</strong>台中市中區中山路 20 號。<br>
+                    <strong>閱讀重點：</strong>歷史老屋再生、巴洛克紅磚騎樓、挑高圖書館空間與文創冰品。
+                </p>
+            </section>
+
+            <!-- 語意元素 5：section（章節區塊：建築特色） -->
+            <section id="highlights">
+                <h2>二、建築特色與參觀順序</h2>
+                <h3>值得留意的三個特色</h3>
+                <ul>
+                    <li><strong>紅磚拱廊立面：</strong>保留日治時期的紅磚牆、古老木樑與牌樓，見證舊城區醫療歷史。</li>
+                    <li><strong>挑高魔幻書架：</strong>內部採用透光玻璃天花板與挑高達數層樓的大型木製書櫃，營造宏偉復古氛圍。</li>
+                    <li><strong>特色手作甜點：</strong>將傳統鳳梨酥、乳酪蛋糕融入多達數十種口味的冰淇淋，包裝亦具書籍設計美學。</li>
+                </ul>
+
+                <h3>建議參觀順序</h3>
+                <p>以下是本報導規劃的參觀順序建議，並非官方指定路線。</p>
+                <ol>
+                    <li>抵達中山路與綠川東街交口，先於戶外欣賞紅磚拱廊、斑駁古蹟立面與「台中市衛生院」歷史雕字。</li>
+                    <li>步入室內大廳，抬頭觀察自然採光的天窗與直達天花板的復古書架裝潢。</li>
+                    <li>前往冰淇淋專區或伴手禮區，品嚐獨特口味的冰品並欣賞精緻書籍造型的糕餅禮盒。</li>
+                    <li>漫步至建築外的綠川水岸步道，在河畔綠意中品嚐甜點並回望老建築全貌。</li>
+                </ol>
+            </section>
+
+            <!-- 語意元素 5：section（章節區塊：比較表，已移除舊版 border 屬性，改由 CSS 繪製邊框） -->
+            <section id="table">
+                <h2>三、參觀重點比較表</h2>
+                <table>
+                    <caption>宮原眼科三大核心區域的特色與觀察重點</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">空間區域</th>
+                            <th scope="col">主要特色</th>
+                            <th scope="col">建議觀察重點</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">紅磚騎樓外觀</th>
+                            <td>建於 1927 年的日治磚木建築遺跡</td>
+                            <td>外牆斑駁的歷史磚紋、騎樓圓拱與洗石子結構</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">中央挑高大廳</th>
+                            <td>老屋再生融合現代設計的書閣殿堂</td>
+                            <td>頂部透光玻璃天頂、垂直大型展示書櫃與復古燈飾</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">綠川水岸周邊</th>
+                            <td>緊鄰宮原眼科的新盛綠川水岸廊道</td>
+                            <td>親水綠帶景觀及日夜燈光倒映老建築的景致</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 語意元素 5：section（章節區塊：照片） -->
+            <section id="photo">
+                <h2>四、歷史建築外觀照片</h2>
+                <!-- 語意元素 6 & 7：figure 與 figcaption（圖片與圖說組合） -->
+                <figure>
+                    <img
+                        src="Miyahara.jpg"
+                        alt="台中宮原眼科紅磚歷史建築外觀"
+                        width="480">
+                    <figcaption>
+                        宮原眼科保留了日治時期的紅磚騎樓與典雅拱廊結構。<br>
+                        圖片來源：<a href="https://zh.wikipedia.org/wiki/宮原眼科" target="_blank" rel="noopener noreferrer">維基百科：宮原眼科</a>。
+                    </figcaption>
+                </figure>
+            </section>
+
+            <!-- 語意元素 5：section（章節區塊：影音） -->
+            <section id="video">
+                <h2>五、影音報導</h2>
+                <p>透過下方影片走訪宮原眼科，感受老建築活化再利用的氛圍與熱門甜點魅力：</p>
+                
+                <!-- 套用 class 選擇器 .media-container 限制播放寬度與陰影 -->
+                <div class="media-container">
+                    <iframe
+                        height="300"
+                        src="https://www.youtube.com/embed/bLUxUHmhQEs"
+                        title="宮原眼科介紹影片"
+                        style="border:0;"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p>
+                    若播放器無法播放，請
+                    <a href="https://www.youtube.com/watch?v=bLUxUHmhQEs" target="_blank" rel="noopener noreferrer">在 YouTube 觀看宮原眼科介紹影片（另開分頁）</a>。
+                </p>
+                <p><small>影片為外部創作者實地走訪介紹，各項販售內容與現場動線請以官方最新公告為準。</small></p>
+            </section>
+
+            <!-- 語意元素 5：section（章節區塊：位置地圖） -->
+            <section id="map">
+                <h2>六、位置地圖：找到宮原眼科</h2>
+                <p>宮原眼科位於台中市中區，地址為<strong>中山路 20 號</strong>。下方地圖標示本文介紹的景點位置，方便讀者對照景點與周邊街道。</p>
+                
+                <!-- 套用 class 選擇器 .media-container -->
+                <div class="media-container">
+                    <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.931895242975!2d120.67944637603104!3d24.139029773744408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d00192caaef%3A0x2668c5721a8fdc2f!2z5a6u5Y6f55y856eR!5e0!3m2!1szh-TW!2stw!4v1792551040002!5m2!1szh-TW!2stw"
+    height="320"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin">
+</iframe>
+                </div>
+                <p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=宮原眼科" target="_blank" rel="noopener noreferrer">在 Google 地圖開啟宮原眼科（另開分頁）</a>
+                </p>
+                <p><small>位置查詢由 Google 地圖提供；抵達後請依現場導覽牌確認入口與排隊動線。</small></p>
+            </section>
+
+            <!-- 語意元素 8：aside（側邊/補充資訊），已使用 #tips ID 選擇器加上專屬邊框背景 -->
+            <aside id="tips" aria-label="參觀實用小貼士">
+                <h3>💡 參觀實用小貼士（Aside 補充資訊）</h3>
+                <ul>
+                    <li><strong>營業時間：</strong>每日 10:00 – 21:00（冰淇淋排隊人潮多，建議平日午後前往）。</li>
+                    <li><strong>交通方式：</strong>由台中火車站步行約 3～5 分鐘即可抵達。</li>
+                    <li><strong>拍照建議：</strong>挑高大廳下午有天井自然光透入，室內拍照效果最為夢幻。</li>
+                </ul>
+            </aside>
+
+            <!-- 語意元素 5：section（章節區塊：資料來源） -->
+            <section id="sources">
+                <h2>七、資料來源</h2>
+                <p>本報導依下列官方與公開資料整理，參觀順序與重點觀察由作者規劃整理。</p>
+                <ul>
+                    <li><a href="https://travel.taichung.gov.tw/zh-tw/attractions/intro/793" target="_blank" rel="noopener noreferrer">臺中觀光旅遊網：宮原眼科景點介紹</a></li>
+                    <li><a href="https://www.taiwan.net.tw/" target="_blank" rel="noopener noreferrer">交通部觀光署：台灣觀光資訊網</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=bLUxUHmhQEs" target="_blank" rel="noopener noreferrer">YouTube：宮原眼科超人氣景點與特色介紹</a></li>
+                </ul>
+
+                <!-- 【方法一：行內樣式 3】針對整理日期設定淺字體與右靠齊，註解說明其用途 -->
+                <p style="text-align: right; color: #8c827a; margin-top: 15px;">
+                    <small>資料整理日期：<time datetime="2026-10-21">2026 年 10 月 21 日</time>。</small>
+                </p>
+            </section>
+        </article>
+    </main>
+
+    <hr>
+
+   <!-- 語意元素 9：footer（頁尾） -->
+    <footer>
+        <p><strong>第六次 HTML 與 CSS 作業｜宮原眼科報導</strong></p>
+        <p>作者：D1430017 與那嶺藍・更新日期：<time datetime="2026-10-21">2026 年 10 月 21 日</time></p>
+        <p><small>文字依來源整理；照片與影片權利屬原作者。本文為課堂作業。</small></p>
+        <p><a href="#top">回到頁首</a></p>
+    </footer>
+</body>
+</html>
